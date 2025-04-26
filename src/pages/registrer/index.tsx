@@ -1,0 +1,183 @@
+
+/**
+  Primera version de la pagina de registro de usuario
+  Se utiliza la libreria de Material UI para el diseño
+ */
+
+//pagina de registro de usuario
+// nombre completo,  correo, contraseña, confirmar contraseña
+// telefono, C.c
+
+/**
+  implementar mas bootstrap
+  añadir mas criterios de password (min 8 charctr, mayusculas, minusculas, simbolos, etc...) 
+ */
+
+
+
+import {
+  Typography,
+  Stack,
+  TextField,
+  SxProps,
+  Theme,
+  Button,
+  Box,
+} from "@mui/material";
+import logo from "../../assets/logo.jpeg";
+import { useState } from "react";
+
+const stylesInput: SxProps<Theme> = {
+  "& .MuiOutlinedInput-root": {
+    "& fieldset": {
+      borderColor: "grey",
+    },
+    "&:hover fieldset": {
+      borderColor: "#26c6da",
+    },
+    "&.Mui-focused fieldset": {
+      borderColor: "grey",
+    },
+  },
+  "& .MuiInputLabel-root": {
+    color: "#0d253f",
+  },
+  "& .MuiInputLabel-root.Mui-focused": {
+    color: "#26c6da",
+  },
+  "& .MuiInputBase-input": {
+    color: "black",
+  },
+};
+
+export const Registrer = () => {
+  const [formData, setFormData] = useState({
+    fullName: "Pepito Perez",
+    email: "test@gmail.com",
+    password: "",
+    confirmPassword: "",
+    phone: "",
+    cc: "",
+  });
+
+  const [error, setError] = useState("");
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (formData.password !== formData.confirmPassword) {
+      setError("La contraseña no coincide");
+      return;
+    }
+
+    setError("");
+    alert("Formulario enviado correctamente");
+    console.log(formData);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value, name } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  return (
+    <Box
+      sx={{
+        position: "relative",
+        minHeight: "100vh",
+        backgroundImage: `url(${logo})`,
+        backgroundRepeat: "repeat", 
+        backgroundSize: "33.33% 10%", 
+        backgroundAttachment: "fixed", 
+        opacity: 0.9, //transparencia
+        
+      }}
+    >
+       
+      <Stack
+        justifyContent="center"
+        alignItems="center"
+        minHeight="100vh"
+        bgcolor="rgba(13, 37, 63)" // Fondo semitransparente para el formulario
+        component="main"
+      >
+        <Stack
+          bgcolor="#f5f5f5"
+          gap={2}
+          p={5}
+          borderRadius="16px"
+          component="form"
+          onSubmit={handleSubmit}
+          sx={{ position: "relative" }} // Asegura que el formulario esté encima
+        >
+          <Box component="img" src={logo} alt="Logo" />
+          <TextField
+            label="Full Name"
+            variant="outlined"
+            sx={stylesInput}
+            type="text"
+            name="fullName"
+            value={formData.fullName}
+            onChange={handleChange}
+          />
+          <TextField
+            label="Email"
+            variant="outlined"
+            sx={stylesInput}
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+          />
+          <TextField
+            label="Password"
+            variant="outlined"
+            sx={stylesInput}
+            type="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+          />
+          <TextField
+            label="Confirm Password"
+            variant="outlined"
+            sx={stylesInput}
+            type="password"
+            name="confirmPassword"
+            value={formData.confirmPassword}
+            onChange={handleChange}
+          />
+          {error && (
+            <Typography color="error" variant="body2">
+              {error}
+            </Typography>
+          )}
+          <TextField
+            label="Phone"
+            variant="outlined"
+            sx={stylesInput}
+            type="tel"
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+          />
+          <TextField
+            label="identification Card"
+            variant="outlined"
+            sx={stylesInput}
+            type="number"
+            name="cc"
+            value={formData.cc}
+            onChange={handleChange}
+          />
+          <Button variant="contained" type="submit">
+            Sign In
+          </Button>
+        </Stack>
+      </Stack>
+    </Box>
+  );
+};
