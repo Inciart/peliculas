@@ -56,8 +56,8 @@ export const Registrer = () => {
     email: "test@gmail.com",
     password: "",
     confirmPassword: "",
-    phone: "",
-    cc: "",
+    phone: Number(""),
+    cc: Number(""),
   });
 
   const [error, setError] = useState("");
@@ -89,14 +89,12 @@ export const Registrer = () => {
         position: "relative",
         minHeight: "100vh",
         backgroundImage: `url(${logo})`,
-        backgroundRepeat: "repeat", 
-        backgroundSize: "33.33% 10%", 
-        backgroundAttachment: "fixed", 
+        backgroundRepeat: "repeat",
+        backgroundSize: "33.33% 10%",
+        backgroundAttachment: "fixed",
         opacity: 0.9, //transparencia
-        
       }}
     >
-       
       <Stack
         justifyContent="center"
         alignItems="center"
@@ -113,43 +111,47 @@ export const Registrer = () => {
           onSubmit={handleSubmit}
           sx={{ position: "relative" }} // Asegura que el formulario esté encima
         >
-          <Box component="img" src={logo} alt="Logo" />
-          <TextField
-            label="Full Name"
-            variant="outlined"
-            sx={stylesInput}
-            type="text"
-            name="fullName"
-            value={formData.fullName}
-            onChange={handleChange}
-          />
-          <TextField
-            label="Email"
-            variant="outlined"
-            sx={stylesInput}
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-          />
-          <TextField
-            label="Password"
-            variant="outlined"
-            sx={stylesInput}
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-          />
-          <TextField
-            label="Confirm Password"
-            variant="outlined"
-            sx={stylesInput}
-            type="password"
-            name="confirmPassword"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-          />
+          <Box component="img" src={logo} alt="Logo"pb={3} />
+          <Stack gap={2} direction="row">
+            <TextField
+              label="Full Name"
+              variant="outlined"
+              sx={stylesInput}
+              type="text"
+              name="fullName"
+              value={formData.fullName}
+              onChange={handleChange}
+            />
+            <TextField
+              label="Email"
+              variant="outlined"
+              sx={stylesInput}
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+            />
+          </Stack>
+          <Stack direction="row" gap={2}>
+            <TextField
+              label="Password"
+              variant="outlined"
+              sx={stylesInput}
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+            />
+            <TextField
+              label="Confirm Password"
+              variant="outlined"
+              sx={stylesInput}
+              type="password"
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+            />
+          </Stack>
           {error && (
             <Typography color="error" variant="body2">
               {error}
@@ -174,7 +176,7 @@ export const Registrer = () => {
             onChange={handleChange}
           />
           <Button variant="contained" type="submit">
-            Sign In
+            Register
           </Button>
         </Stack>
       </Stack>
