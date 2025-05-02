@@ -6,7 +6,9 @@ import {
   Theme,
   Button,
   Box,
+  Link,
 } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
 import logo from "../../assets/logo.jpeg";
 import { useState } from "react";
 /**
@@ -89,6 +91,9 @@ export const Login = () => {
           value={formData.password}
           onChange={handleChange}
         />
+        <Link component={RouterLink} to="/register" color="#fff">
+          Register
+        </Link>
         <Button variant="contained" type="submit">
           Sing In
         </Button>

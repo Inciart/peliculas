@@ -23,7 +23,9 @@ import {
   Theme,
   Button,
   Box,
+  Link,
 } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
 import logo from "../../assets/logo.jpeg";
 import { useState } from "react";
 
@@ -50,7 +52,7 @@ const stylesInput: SxProps<Theme> = {
   },
 };
 
-export const Registrer = () => {
+export const Register = () => {
   const [formData, setFormData] = useState({
     fullName: "Pepito Perez",
     email: "test@gmail.com",
@@ -65,13 +67,37 @@ export const Registrer = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    if (
+      formData.fullName === "" ||
+      formData.email === "" ||
+      formData.password === "" ||
+      formData.confirmPassword === "" ||
+      formData.phone.toString() === "" ||
+      formData.cc.toString() === ""
+    ) {
+      setError("All fields are required");
+      return;
+    }
     if (formData.password !== formData.confirmPassword) {
-      setError("La contraseña no coincide");
+      setError("The passwords doesn't matches");
+      return;
+    }
+
+    if (formData.phone.toString().length !== 8) {
+      setError("The phone number must to be 8 digits");
+      return;
+    }
+
+    if (
+      formData.cc.toString().length < 10 ||
+      formData.cc.toString().length > 12
+    ) {
+      setError("The identification card must have 10 to 12 digits");
       return;
     }
 
     setError("");
-    alert("Formulario enviado correctamente");
+    alert("The user has been registered successfully");
     console.log(formData);
   };
 
@@ -96,6 +122,7 @@ export const Registrer = () => {
       }}
     >
       <Stack
+        p={2}
         justifyContent="center"
         alignItems="center"
         minHeight="100vh"
@@ -111,7 +138,8 @@ export const Registrer = () => {
           onSubmit={handleSubmit}
           sx={{ position: "relative" }} // Asegura que el formulario esté encima
         >
-          <Box component="img" src={logo} alt="Logo"pb={3} />
+          <Box component="img" src={logo} alt="Logo" pb={3} />
+
           <Stack gap={2} direction="row">
             <TextField
               label="Full Name"
@@ -122,6 +150,7 @@ export const Registrer = () => {
               value={formData.fullName}
               onChange={handleChange}
             />
+
             <TextField
               label="Email"
               variant="outlined"
@@ -178,6 +207,9 @@ export const Registrer = () => {
           <Button variant="contained" type="submit">
             Register
           </Button>
+          <Link component={RouterLink} to="/login" color="#0d253f">
+            If you aren't Register, Click here to login
+          </Link>
         </Stack>
       </Stack>
     </Box>
